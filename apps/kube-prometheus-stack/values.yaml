@@ -6,7 +6,7 @@ httpRoutes:
       namespace: monitoring
       parentRef:
         gateway: default-gateway
-        namespace: monitoring
+        namespace: istio-system
       hostname: grafana.fava.casa
       path:
         type: PathPrefix
@@ -18,7 +18,7 @@ httpRoutes:
       namespace: monitoring
       parentRef:
         gateway: default-gateway
-        namespace: monitoring
+        namespace: istio-system
       hostname: prometheus.fava.casa
       path:
         type: PathPrefix
