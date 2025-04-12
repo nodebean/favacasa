@@ -1,0 +1,38 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: openebs
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://openebs.github.io/openebs
+    targetRevision: 4.2.0
+    chart: openebs
+    helm:
+      releaseName: openebs
+      values: |
+        mayastor:
+          csi:
+            node:
+              initContainers:
+                enabled: false
+      parameters:
+        - name: "zfs-localpv.zfsNode.encrKeysDir"
+          value: "/var/openebs/keys"
+        - name: "engines.replicated.mayastor.enabled"
+          value: "false"
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: openebs
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+      allowEmpty: false
+    syncOptions:
+      - CreateNamespace=true
+      - PrunePropagationPolicy=foreground
+      - PruneLast=true

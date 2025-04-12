@@ -1,0 +1,33 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: letsencrypt
+  namespace: istio-system
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: "nodebean@beanteam.org"
+    privateKeySecretRef:
+      name: letsencrypt-account-key
+    solvers:
+    - dns01:
+        cloudflare:
+          apiTokenSecretRef:
+            name: cloudflare-api-token-secret
+            key: api-token
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: star-fava-casa
+  namespace: istio-system
+spec:
+  secretName: star-fava-casa-tls
+  duration: 2160h
+  renewBefore: 360h
+  dnsNames:
+  - "*.fava.casa"
+  issuerRef:
+    name: letsencrypt
+    kind: Issuer

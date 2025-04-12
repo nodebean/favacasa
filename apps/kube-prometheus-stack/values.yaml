@@ -1,0 +1,86 @@
+# Enable HTTPRoutes
+httpRoutes:
+  enabled: true
+  routes:
+    - name: grafana
+      namespace: monitoring
+      parentRef:
+        gateway: default-gateway
+        namespace: istio-system
+      hostname: grafana.fava.casa
+      path:
+        type: PathPrefix
+        value: /
+      backend:
+        name: kube-prometheus-stack-grafana 
+        port: 80
+    - name: prometheus
+      namespace: monitoring
+      parentRef:
+        gateway: default-gateway
+        namespace: istio-system
+      hostname: prometheus.fava.casa
+      path:
+        type: PathPrefix
+        value: /
+      backend:
+        name: kube-prometheus-stack-prometheus 
+        port: 80
+
+# Kube-prometheus-stack values
+kube-prometheus-stack:
+  grafana:
+    enabled: true
+    adminPassword: prom-operator
+    persistence:
+      enabled: true
+      storageClassName: openebs-hostpath
+      size: 5Gi
+ 
+  prometheus:
+    enabled: true
+    serviceAccount:
+      create: true
+      name: "prometheus-sa"
+    serviceMonitor:
+      selfMonitor: true
+    prometheusSpec:
+      retention: 5d
+      resources:
+        requests:
+          cpu: 200m
+          memory: 512Mi
+        limits:
+          memory: 1Gi
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            storageClassName: openebs-hostpath
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 20Gi
+ 
+  alertmanager:
+    enabled: true
+    serviceAccount:
+      create: true
+      name: "alertmanager-sa"
+    alertmanagerSpec:
+      storage:
+        volumeClaimTemplate:
+          spec:
+            storageClassName: standard
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 5Gi
+  nodeExporter:
+    enabled: true                
+  prometheusOperator:
+    enabled: true
+    serviceAccount:
+      create: true
+      name: "prometheus-operator-sa"
+  kubeStateMetrics:
+    enabled: true
