@@ -1,0 +1,73 @@
+
+httpRoutes:
+  name: argocd
+  namespace: argocd
+  parentRef:
+    name: default-gateway
+    namespace: istio-system
+  hostname: argocd.fava.casa
+  path:
+    type: PathPrefix  # PathPrefix, PathExact, PathRegularExpression
+    value: /
+  backend:
+    name: argocd-server
+    port: 80
+
+kube-prometheus-stack:
+  grafana:
+    enabled: true
+    adminPassword: prom-operator
+    persistence:
+      enabled: true
+      storageClassName: openebs-hostpath
+      size: 5Gi
+  
+  prometheus:
+    enabled: true
+    serviceAccount:
+      create: true
+      name: "prometheus-sa"
+    serviceMonitor:
+      selfMonitor: true
+    prometheusSpec:
+      retention: 5d
+      resources:
+        requests:
+          cpu: 200m
+          memory: 512Mi
+        limits:
+          memory: 1Gi
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            storageClassName: openebs-hostpath
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 20Gi
+  
+  alertmanager:
+    enabled: true
+    serviceAccount:
+      create: true
+      name: "alertmanager-sa"
+    alertmanagerSpec:
+      storage:
+        volumeClaimTemplate:
+          spec:
+            storageClassName: standard
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 5Gi
+  nodeExporter:
+    enabled: true                
+
+  prometheusOperator:
+    enabled: true
+    serviceAccount:
+      create: true
+      name: "prometheus-operator-sa"
+
+  kubeStateMetrics:
+    enabled: true
