@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/nodebean/favacasa.git
+    repoURL: git@github.com:nodebean/favacasa.git
     targetRevision: initial-commit
     path: apps/kube-prometheus-stack
   destination:

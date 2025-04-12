@@ -4,27 +4,29 @@
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: HTTPRoute
 metadata:
-  name: {{ .Values.name }}
-  namespace: {{ .Values.namespace }}
-  {{- if .Values.labels }}
+  name: {{ .name }}
+  namespace: {{ .namespace }}
+  {{- if .labels }}
   labels:
-    {{- toYaml .Values.labels | nindent 4 }}
+    {{- toYaml .labels | nindent 4 }}
   {{- end }}
-  {{- if .Values.annotations }}
+  {{- if .annotations }}
   annotations:
-    {{- toYaml .Values.annotations | nindent 4 }}
+    {{- toYaml .annotations | nindent 4 }}
   {{- end }}
 spec:
   parentRefs:
-    - name: {{ .Values.parentRef.gateway }}
-      namespace: {{ .Values.parentRef.namespace }}
+    - name: {{ .parentRef.gateway }}
+      namespace: {{ .parentRef.namespace }}
   hostnames:
-    - {{ .Values.hostname | quote }}
+    - {{ .hostname | quote }}
   rules:
     - matches:
         - path:
-            type: {{ .Values.path.type | default "PathPrefix" }}
-            value: {{ .Values.path.value | default "/" | quote }}
+            type: {{ .path.type | default "PathPrefix" }}
+            value: {{ .path.value | default "/" }}
       backendRefs:
-        - name: {{ .Values.backend.name }}
-          port: {{ .Values.backend.port }}
+        - name: {{ .backend.name }}
+          port: {{ .backend.port }}
+{{- end }}
+{{- end }}

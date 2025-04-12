@@ -1,18 +1,21 @@
-
+# Enable HTTPRoutes
 httpRoutes:
-  name: argocd
-  namespace: argocd
-  parentRef:
-    name: default-gateway
-    namespace: istio-system
-  hostname: argocd.fava.casa
-  path:
-    type: PathPrefix  # PathPrefix, PathExact, PathRegularExpression
-    value: /
-  backend:
-    name: argocd-server
-    port: 80
+  enabled: true
+  routes:
+    - name: argocd
+      namespace: argocd
+      parentRef:
+        gateway: default-gateway
+        namespace: istio-system
+      hostname: argocd.fava.casa
+      path:
+        type: PathPrefix
+        value: /
+      backend:
+        name: argocd-server
+        port: 80
 
+# Kube-prometheus-stack values
 kube-prometheus-stack:
   grafana:
     enabled: true
@@ -21,7 +24,7 @@ kube-prometheus-stack:
       enabled: true
       storageClassName: openebs-hostpath
       size: 5Gi
-  
+ 
   prometheus:
     enabled: true
     serviceAccount:
@@ -45,7 +48,7 @@ kube-prometheus-stack:
             resources:
               requests:
                 storage: 20Gi
-  
+ 
   alertmanager:
     enabled: true
     serviceAccount:
@@ -62,12 +65,10 @@ kube-prometheus-stack:
                 storage: 5Gi
   nodeExporter:
     enabled: true                
-
   prometheusOperator:
     enabled: true
     serviceAccount:
       create: true
       name: "prometheus-operator-sa"
-
   kubeStateMetrics:
     enabled: true
