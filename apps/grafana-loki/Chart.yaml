@@ -1,0 +1,7 @@
+apiVersion: v2
+name: grafana-loki
+description: A Helm chart that wraps grafana-loki as a subchart
+version: 1.0.0
+dependencies:
+  - name: loki
+    version: "6.29.0"
