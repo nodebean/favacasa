@@ -40,27 +40,22 @@ grafana-loki:
       writebackSizeLimit: 10MB
 
     storage:
+      type: s3
       bucketNames:
         chunks: "loki-chunks"
         ruler: loki-ruler
         admin: loki-admin
-      object_store:
-        # Type of object store. Valid options are: s3, gcs, azure
-        type: s3
-        # Optional prefix for storage keys
-        storage_prefix: null
-        # S3 configuration (when type is "s3")
-        s3:
-          # S3 endpoint URL
-          endpoint: http://10.10.8.15:9000/loki
-          # Optional region
-          region: proxmox-1
-          # Optional access key
-          access_key_id: null
-          # Optional secret key
-          secret_access_key: null
-          # Optional. Enable if using self-signed TLS
-          insecure: true
+      s3:
+        # S3 endpoint URL
+        endpoint: http://10.10.8.15:9000/loki
+        # Optional region
+        region: proxmox-1
+        # Optional access key
+        access_key_id: balls
+        # Optional secret key
+        secret_access_key: balls
+        # Optional. Enable if using self-signed TLS
+        insecure: true
 
     backend:
       replicas: 0
