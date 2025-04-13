@@ -3,7 +3,7 @@ minioSecret:
   accessKeyId: ""
   secretAccessKey: ""
 
-loki:
+grafana-loki:
   loki:
     commonConfig:
       replication_factor: 1
