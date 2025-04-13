@@ -67,12 +67,12 @@ grafana-loki:
       secretAccessKey:
         valueFrom:
           secretKeyRef:
-            name: {{ include "parent-chart.fullname" . }}-minio-credentials
+            name: grafana-loki-minio-credentials
             key: secretAccessKey
       accessKeyId:
         valueFrom:
           secretKeyRef:
-            name: {{ include "parent-chart.fullname" . }}-minio-credentials
+            name: grafana-loki-minio-credentials
             key: accessKeyId
       insecure: true
 
