@@ -3,7 +3,6 @@ minioSecret:
   accessKeyId: ""
   secretAccessKey: ""
 
-
 grafana-loki:
   loki:
     commonConfig:
