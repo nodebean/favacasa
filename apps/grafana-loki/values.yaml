@@ -47,16 +47,8 @@ loki:
     s3:
       endpoint: http://10.10.8.15:9000
       region: proxmox-1
-      accessKeyId:
-        valueFrom:
-          secretKeyRef:
-            name: grafana-loki-minio-credentials
-            key: accessKeyId
-      secretAccessKey:
-        valueFrom:
-          secretKeyRef:
-            name: grafana-loki-minio-credentials
-            key: secretAccessKey
+      accessKeyId: "PLACEHOLDER"  # Replace with actual value or secret reference
+      secretAccessKey: "PLACEHOLDER"  # Replace with actual value or secret reference
       insecure: true
 
   backend:
