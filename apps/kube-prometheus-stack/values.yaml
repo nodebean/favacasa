@@ -85,3 +85,26 @@ kube-prometheus-stack:
       name: "prometheus-operator-sa"
   kubeStateMetrics:
     enabled: true
+
+loki-stack:
+  enabled: true
+  grafana:
+    enabled: false
+  loki:
+    enabled: true
+    serviceAccount:
+      create: true
+      name: "loki-sa"
+    storage:
+      volumeClaimTemplate:
+        spec:
+          storageClassName: openebs-hostpath
+          accessModes: ["ReadWriteOnce"]
+          resources:
+            requests:
+              storage: 20Gi
+  promtail:
+    enabled: false
+    config:
+      clients:
+        - url: http://kube-prometheus-stack-loki.monitoring.svc.cluster.local:3100/loki/api/v1/push
