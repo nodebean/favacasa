@@ -104,3 +104,6 @@ loki-stack:
               storage: 20Gi
   promtail:
     enabled: true
+    config:
+      clients:
+        - url: http://kube-prometheus-stack-loki.monitoring.svc.cluster.local:3100/loki/api/v1/push
