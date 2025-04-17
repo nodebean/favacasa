@@ -54,7 +54,7 @@ Ambient mode splits Istio’s functionality into two distinct layers. At the bas
 
 https://istio.io/latest/docs/ambient/overview/
 
-### gateway api
+### Gateway API
 
 Gateway API is a family of API kinds that provide dynamic infrastructure provisioning and advanced traffic routing.
 
@@ -62,7 +62,7 @@ Make network services available by using an extensible, role-oriented, protocol-
 
 https://kubernetes.io/docs/concepts/services-networking/gateway/
 
-### METALLB
+### MetalLb
 
 MetalLB is a load-balancer implementation for bare metal Kubernetes clusters, using standard routing protocols.
 
