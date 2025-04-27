@@ -21,10 +21,10 @@ terraform {
 
 
 provider "proxmox" {
-  endpoint = "https://10.10.8.11:8006/"
+  endpoint = "https://10.10.12.2:8006/"
   # TODO: use terraform variable or remove the line, and use PROXMOX_VE_USERNAME environment variable
-  username = "root@pam"
+  # username = "root@pam"
   # TODO: use terraform variable or remove the line, and use PROXMOX_VE_PASSWORD environment variable
-  password = "some-password"
+  # password = "some-password"
   insecure = true
 }

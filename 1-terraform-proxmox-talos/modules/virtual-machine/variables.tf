@@ -12,6 +12,7 @@ variable "kubernetes_cluster" {
 variable "virtual_machines" {
   type = map(object({
     host_node      = string
+    vm_id          = optional(number, null)
     machine_type   = string
     datastore_id   = optional(string, "local-lvm")
     ip             = string

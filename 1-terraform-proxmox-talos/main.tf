@@ -1,46 +1,73 @@
 locals {
   kubernetes_cluster = {
-    name     = "favacasa"
-    gateway  = "10.10.8.1"
-    cidr     = 24
-    endpoint = "10.10.8.12"
+    name               = "favacasa"
+    gateway            = "10.10.13.1"
+    cidr               = 24
+    endpoint           = "10.10.13.51"
     kubernetes_version = "v1.30.10"
   }
 
   virtual_machines = {
-    "node1" = {
+    "controlplane1" = {
       host_node      = "pve"
+      vm_id          = 1351
       machine_type   = "controlplane"
-      ip             = "10.10.8.12"
+      ip             = "10.10.13.51"
       cpu            = 2
-      ram_dedicated  = 12288
+      ram_dedicated  = 4096
       os_disk_size   = 10
-      data_disk_size = 128
-      datastore_id   = "local-lvm"
-      bridge         = "vmbr0"
+      data_disk_size = 32
+      datastore_id   = "local-zfs"
+      bridge         = "vmbr1"
     }
-    "node2" = {
+    "controlplane2" = {
       host_node      = "pve"
-      machine_type   = "worker"
-      ip             = "10.10.8.13"
+      vm_id          = 1352
+      machine_type   = "controlplane"
+      ip             = "10.10.13.52"
       cpu            = 2
-      ram_dedicated  = 12288
+      ram_dedicated  = 4096
+      os_disk_size   = 10
+      data_disk_size = 32
+      datastore_id   = "local-zfs"
+      bridge         = "vmbr1"
+    }
+    "worker1" = {
+      host_node      = "pve"
+      vm_id          = 1353
+      machine_type   = "worker"
+      ip             = "10.10.13.53"
+      cpu            = 8
+      ram_dedicated  = 16384
       os_disk_size   = 10
       data_disk_size = 128
-      datastore_id   = "local-lvm"
-      bridge         = "vmbr0"
+      datastore_id   = "local-zfs"
+      bridge         = "vmbr1"
     }
 
-    "node3" = {
+    "worker2" = {
       host_node      = "pve"
+      vm_id          = 1354
       machine_type   = "worker"
-      ip             = "10.10.8.14"
-      cpu            = 2
-      ram_dedicated  = 12288
+      ip             = "10.10.13.54"
+      cpu            = 8
+      ram_dedicated  = 16384
       os_disk_size   = 10
       data_disk_size = 128
-      datastore_id   = "local-lvm"
-      bridge         = "vmbr0"
+      datastore_id   = "local-zfs"
+      bridge         = "vmbr1"
+    }
+    "worker3" = {
+      host_node      = "pve"
+      vm_id          = 1355
+      machine_type   = "worker"
+      ip             = "10.10.13.55"
+      cpu            = 8
+      ram_dedicated  = 16384
+      os_disk_size   = 10
+      data_disk_size = 128
+      datastore_id   = "local-zfs"
+      bridge         = "vmbr1"
     }
   }
 }

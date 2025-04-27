@@ -1,7 +1,7 @@
 variable "kubernetes_cluster" {
   type = object({
-    name         = string
-    endpoint     = string
+    name               = string
+    endpoint           = string
     kubernetes_version = string
   })
 }

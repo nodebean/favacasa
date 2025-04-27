@@ -32,6 +32,7 @@ resource "proxmox_virtual_environment_vm" "vms" {
   for_each = var.virtual_machines
 
   node_name = each.value.host_node
+  vm_id     = each.value.vm_id
 
   name    = "${var.kubernetes_cluster.name}-${each.key}"
   on_boot = true
