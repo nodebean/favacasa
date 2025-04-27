@@ -1,6 +1,6 @@
 output "kube_config" {
-    value = module.kubernetes.kube_config
-    sensitive = true
+  value     = module.kubernetes.kube_config
+  sensitive = true
 }
 
 output "talos_config" {
